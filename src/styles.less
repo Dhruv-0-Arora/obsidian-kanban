@@ -839,6 +839,60 @@ button.kanban-plugin__new-item-button {
   padding-block-start: 4px;
 }
 
+.kanban-plugin__item-date-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--text-muted);
+  background-color: var(--background-secondary);
+  border-radius: var(--radius-s);
+  padding: 3px 6px;
+  cursor: var(--cursor);
+  user-select: none;
+  flex-shrink: 0;
+
+  &:hover {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+  }
+
+  &.has-date {
+    color: var(--date-color, var(--text-muted));
+  }
+
+  &.has-background {
+    background-color: var(--date-background-color, var(--background-secondary));
+    color: var(--date-color, var(--text-on-accent));
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.kanban-plugin__item-date-bubble-date {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.kanban-plugin__item-date-bubble-countdown {
+  opacity: 0.75;
+  white-space: nowrap;
+
+  &::before {
+    content: '\00b7';
+    margin-inline-end: 4px;
+  }
+}
+
+.kanban-plugin__item-date-bubble-empty {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.5;
+}
+
 .kanban-plugin__item-story-points {
   display: inline-flex;
   align-items: center;

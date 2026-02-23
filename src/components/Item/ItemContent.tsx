@@ -20,9 +20,9 @@ import {
   MarkdownRenderer,
 } from '../MarkdownRenderer/MarkdownRenderer';
 import { KanbanContext, SearchContext } from '../context';
-import { c, useGetDateColorFn, useGetTagColorFn } from '../helpers';
+import { c, useGetTagColorFn } from '../helpers';
 import { EditState, EditingState, Item, isEditing } from '../types';
-import { DateAndTime, RelativeDate } from './DateAndTime';
+import { DateBubble } from './DateBubble';
 import { InlineMetadata } from './InlineMetadata';
 import { StoryPoints } from './StoryPoints';
 import {
@@ -189,8 +189,7 @@ export const ItemContent = memo(function ItemContent({
   showMetadata = true,
   isStatic,
 }: ItemContentProps) {
-  const { stateManager, filePath, boardModifiers } = useContext(KanbanContext);
-  const getDateColor = useGetDateColorFn(stateManager);
+  const { stateManager, boardModifiers } = useContext(KanbanContext);
   const titleRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -298,14 +297,8 @@ export const ItemContent = memo(function ItemContent({
         <div className={c('item-metadata')}>
           <InlineMetadata item={item} stateManager={stateManager} />
           <Tags tags={item.data.metadata.tags} searchQuery={searchQuery} />
-          <RelativeDate item={item} stateManager={stateManager} />
           <div className={c('item-metadata-bottom')}>
-            <DateAndTime
-              item={item}
-              stateManager={stateManager}
-              filePath={filePath}
-              getDateColor={getDateColor}
-            />
+            <DateBubble item={item} isStatic={isStatic} />
             <StoryPoints item={item} isStatic={isStatic} />
           </div>
         </div>

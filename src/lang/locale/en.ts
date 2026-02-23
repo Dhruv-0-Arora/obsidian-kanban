@@ -211,6 +211,8 @@ const en = {
   today: 'today',
   yesterday: 'yesterday',
   tomorrow: 'tomorrow',
+  day: 'day',
+  days: 'days',
   'Change date': 'Change date',
   'Change time': 'Change time',
 
