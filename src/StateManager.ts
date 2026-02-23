@@ -9,7 +9,12 @@ import { Board, BoardTemplate, Item } from './components/types';
 import { ListFormat } from './parsers/List';
 import { BaseFormat, frontmatterKey, shouldRefreshBoard } from './parsers/common';
 import { getTaskStatusDone } from './parsers/helpers/inlineMetadata';
-import { defaultDateTrigger, defaultMetadataPosition, defaultTimeTrigger } from './settingHelpers';
+import {
+  defaultDateTrigger,
+  defaultMetadataPosition,
+  defaultStoryPointsTrigger,
+  defaultTimeTrigger,
+} from './settingHelpers';
 
 export class StateManager {
   onEmpty: () => void;
@@ -240,6 +245,8 @@ export class StateManager {
         this.getSettingRaw('inline-metadata-position', suppliedSettings) || defaultMetadataPosition,
       'time-format': timeFormat,
       'time-trigger': this.getSettingRaw('time-trigger', suppliedSettings) || defaultTimeTrigger,
+      'story-points-trigger':
+        this.getSettingRaw('story-points-trigger', suppliedSettings) || defaultStoryPointsTrigger,
       'link-date-to-daily-note': this.getSettingRaw('link-date-to-daily-note', suppliedSettings),
       'move-dates': this.getSettingRaw('move-dates', suppliedSettings),
       'move-tags': this.getSettingRaw('move-tags', suppliedSettings),

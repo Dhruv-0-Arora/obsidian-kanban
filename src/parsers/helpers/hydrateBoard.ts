@@ -19,6 +19,7 @@ export function preprocessTitle(stateManager: StateManager, title: string) {
   const dateDisplayFormat = stateManager.getSetting('date-display-format');
   const timeTrigger = stateManager.getSetting('time-trigger');
   const timeFormat = stateManager.getSetting('time-format');
+  const storyPointsTrigger = stateManager.getSetting('story-points-trigger');
 
   const { app } = stateManager;
 
@@ -91,6 +92,11 @@ export function preprocessTitle(stateManager: StateManager, title: string) {
       const { wrapperClass, wrapperStyle } = getWrapperStyles(c('preview-time-wrapper'));
       return `${space}<span data-date="${date.toISOString()}" class="${wrapperClass} ${c('date')}"${wrapperStyle}><span class="${c('preview-time')} ${c('item-metadata-time')}">${parsed.format(timeFormat)}</span></span>`;
     }
+  );
+
+  title = title.replace(
+    new RegExp(`(^|\\s)${escapeRegExpStr(storyPointsTrigger)}{([^}]+)}`, 'g'),
+    ''
   );
 
   return title;

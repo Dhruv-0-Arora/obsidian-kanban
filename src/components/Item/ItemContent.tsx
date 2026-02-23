@@ -24,6 +24,7 @@ import { c, useGetDateColorFn, useGetTagColorFn } from '../helpers';
 import { EditState, EditingState, Item, isEditing } from '../types';
 import { DateAndTime, RelativeDate } from './DateAndTime';
 import { InlineMetadata } from './InlineMetadata';
+import { StoryPoints } from './StoryPoints';
 import {
   constructDatePicker,
   constructMenuDatePickerOnChange,
@@ -295,15 +296,18 @@ export const ItemContent = memo(function ItemContent({
       )}
       {showMetadata && (
         <div className={c('item-metadata')}>
-          <RelativeDate item={item} stateManager={stateManager} />
-          <DateAndTime
-            item={item}
-            stateManager={stateManager}
-            filePath={filePath}
-            getDateColor={getDateColor}
-          />
           <InlineMetadata item={item} stateManager={stateManager} />
           <Tags tags={item.data.metadata.tags} searchQuery={searchQuery} />
+          <RelativeDate item={item} stateManager={stateManager} />
+          <div className={c('item-metadata-bottom')}>
+            <DateAndTime
+              item={item}
+              stateManager={stateManager}
+              filePath={filePath}
+              getDateColor={getDateColor}
+            />
+            <StoryPoints item={item} isStatic={isStatic} />
+          </div>
         </div>
       )}
     </div>

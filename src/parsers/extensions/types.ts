@@ -15,6 +15,10 @@ export interface TimeNode extends ValueNode {
   time: string;
 }
 
+export interface StoryPointsNode extends ValueNode {
+  storyPoints: string;
+}
+
 export interface FileNode extends ValueNode {
   fileAccessor: FileAccessor;
   fileMetadata?: FileMetadata;

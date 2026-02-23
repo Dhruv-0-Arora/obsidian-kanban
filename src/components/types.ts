@@ -69,6 +69,8 @@ export interface ItemMetadata {
   date?: moment.Moment;
   timeStr?: string;
   time?: moment.Moment;
+  storyPoints?: number;
+  storyPointsStr?: string;
   tags?: string[];
   fileAccessor?: FileAccessor;
   file?: TFile | null;

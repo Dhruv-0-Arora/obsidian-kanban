@@ -84,6 +84,9 @@ const en = {
   'Time trigger': 'Time trigger',
   'When this is typed, it will trigger the time selector':
     'When this is typed, it will trigger the time selector',
+  'Story points trigger': 'Story points trigger',
+  'When this is typed, it will trigger story points input. Use with {value}, e.g. sp{3}':
+    'When this is typed, it will trigger story points input. Use with {value}, e.g. sp{3}',
   'Date format': 'Date format',
   'This format will be used when saving dates in markdown.':
     'This format will be used when saving dates in markdown.',
@@ -227,6 +230,9 @@ const en = {
   'Edit time': 'Edit time',
   'Add time': 'Add time',
   'Remove time': 'Remove time',
+  'Edit story points': 'Edit story points',
+  'Add story points': 'Add story points',
+  'Remove story points': 'Remove story points',
   'Duplicate card': 'Duplicate card',
   'Split card': 'Split card',
   'Copy link to card': 'Copy link to card',

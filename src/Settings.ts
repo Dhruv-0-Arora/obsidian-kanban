@@ -37,6 +37,7 @@ import {
   createSearchSelect,
   defaultDateTrigger,
   defaultMetadataPosition,
+  defaultStoryPointsTrigger,
   defaultTimeTrigger,
   getListOptions,
 } from './settingHelpers';
@@ -84,6 +85,7 @@ export interface KanbanSettings {
   'show-search'?: boolean;
   'show-set-view'?: boolean;
   'show-view-as-markdown'?: boolean;
+  'story-points-trigger'?: string;
   'table-sizing'?: Record<string, number>;
   'tag-action'?: 'kanban' | 'obsidian';
   'tag-colors'?: TagColor[];
@@ -132,6 +134,7 @@ export const settingKeyLookup: Set<keyof KanbanSettings> = new Set([
   'show-search',
   'show-set-view',
   'show-view-as-markdown',
+  'story-points-trigger',
   'table-sizing',
   'tag-action',
   'tag-colors',
@@ -682,6 +685,33 @@ export class SettingsManager {
           } else {
             this.applySettingsUpdate({
               $unset: ['time-trigger'],
+            });
+          }
+        });
+      });
+
+    new Setting(contentEl)
+      .setName(t('Story points trigger'))
+      .setDesc(t('When this is typed, it will trigger story points input. Use with {value}, e.g. sp{3}'))
+      .addText((text) => {
+        const [value, globalValue] = this.getSetting('story-points-trigger', local);
+
+        if (value || globalValue) {
+          text.setValue((value || globalValue) as string);
+        }
+
+        text.setPlaceholder((globalValue as string) || defaultStoryPointsTrigger);
+
+        text.onChange((newValue) => {
+          if (newValue) {
+            this.applySettingsUpdate({
+              'story-points-trigger': {
+                $set: newValue,
+              },
+            });
+          } else {
+            this.applySettingsUpdate({
+              $unset: ['story-points-trigger'],
             });
           }
         });
