@@ -24,6 +24,7 @@ import { c, useGetTagColorFn } from '../helpers';
 import { EditState, EditingState, Item, isEditing } from '../types';
 import { DateBubble } from './DateBubble';
 import { InlineMetadata } from './InlineMetadata';
+import { PrioritySelect } from './PrioritySelect';
 import { StoryPoints } from './StoryPoints';
 import {
   constructDatePicker,
@@ -299,7 +300,10 @@ export const ItemContent = memo(function ItemContent({
           <Tags tags={item.data.metadata.tags} searchQuery={searchQuery} />
           <div className={c('item-metadata-bottom')}>
             <DateBubble item={item} isStatic={isStatic} />
-            <StoryPoints item={item} isStatic={isStatic} />
+            <span className={c('item-metadata-bottom-right')}>
+              <PrioritySelect item={item} isStatic={isStatic} />
+              <StoryPoints item={item} isStatic={isStatic} />
+            </span>
           </div>
         </div>
       )}

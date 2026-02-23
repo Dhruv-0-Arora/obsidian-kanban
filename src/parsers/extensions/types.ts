@@ -19,6 +19,10 @@ export interface StoryPointsNode extends ValueNode {
   storyPoints: string;
 }
 
+export interface PriorityNode extends ValueNode {
+  priority: string;
+}
+
 export interface FileNode extends ValueNode {
   fileAccessor: FileAccessor;
   fileMetadata?: FileMetadata;

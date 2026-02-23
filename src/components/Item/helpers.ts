@@ -295,6 +295,11 @@ export function getItemClassModifiers(item: Item) {
     classModifiers.push('is-complete');
   }
 
+  const priority = item.data.metadata.priority;
+  if (priority) {
+    classModifiers.push(`is-priority-${priority}`);
+  }
+
   for (const tag of item.data.metadata.tags) {
     classModifiers.push(`has-tag-${tag.slice(1)}`);
   }

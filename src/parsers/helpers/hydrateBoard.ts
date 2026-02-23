@@ -20,6 +20,7 @@ export function preprocessTitle(stateManager: StateManager, title: string) {
   const timeTrigger = stateManager.getSetting('time-trigger');
   const timeFormat = stateManager.getSetting('time-format');
   const storyPointsTrigger = stateManager.getSetting('story-points-trigger');
+  const priorityTrigger = stateManager.getSetting('priority-trigger');
 
   const { app } = stateManager;
 
@@ -96,6 +97,11 @@ export function preprocessTitle(stateManager: StateManager, title: string) {
 
   title = title.replace(
     new RegExp(`(^|\\s)${escapeRegExpStr(storyPointsTrigger)}{([^}]+)}`, 'g'),
+    ''
+  );
+
+  title = title.replace(
+    new RegExp(`(^|\\s)${escapeRegExpStr(priorityTrigger)}{([^}]+)}`, 'g'),
     ''
   );
 

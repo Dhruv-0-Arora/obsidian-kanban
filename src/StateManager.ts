@@ -12,6 +12,7 @@ import { getTaskStatusDone } from './parsers/helpers/inlineMetadata';
 import {
   defaultDateTrigger,
   defaultMetadataPosition,
+  defaultPriorityTrigger,
   defaultStoryPointsTrigger,
   defaultTimeTrigger,
 } from './settingHelpers';
@@ -247,6 +248,8 @@ export class StateManager {
       'time-trigger': this.getSettingRaw('time-trigger', suppliedSettings) || defaultTimeTrigger,
       'story-points-trigger':
         this.getSettingRaw('story-points-trigger', suppliedSettings) || defaultStoryPointsTrigger,
+      'priority-trigger':
+        this.getSettingRaw('priority-trigger', suppliedSettings) || defaultPriorityTrigger,
       'link-date-to-daily-note': this.getSettingRaw('link-date-to-daily-note', suppliedSettings),
       'move-dates': this.getSettingRaw('move-dates', suppliedSettings),
       'move-tags': this.getSettingRaw('move-tags', suppliedSettings),

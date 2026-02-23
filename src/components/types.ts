@@ -71,6 +71,8 @@ export interface ItemMetadata {
   time?: moment.Moment;
   storyPoints?: number;
   storyPointsStr?: string;
+  priority?: 'low' | 'medium' | 'high';
+  priorityStr?: string;
   tags?: string[];
   fileAccessor?: FileAccessor;
   file?: TFile | null;

@@ -21,7 +21,14 @@ import { t } from 'src/lang/helpers';
 import { visit } from 'unist-util-visit';
 
 import { archiveString, completeString, settingsToCodeblock } from '../common';
-import { DateNode, FileNode, StoryPointsNode, TimeNode, ValueNode } from '../extensions/types';
+import {
+  DateNode,
+  FileNode,
+  PriorityNode,
+  StoryPointsNode,
+  TimeNode,
+  ValueNode,
+} from '../extensions/types';
 import {
   ContentBoundary,
   getNextOfType,
@@ -102,6 +109,8 @@ export function listItemToItemData(stateManager: StateManager, md: string, item:
       timeStr: undefined,
       storyPoints: undefined,
       storyPointsStr: undefined,
+      priority: undefined,
+      priorityStr: undefined,
       tags: [],
       fileAccessor: undefined,
       file: undefined,
@@ -173,6 +182,19 @@ export function listItemToItemData(stateManager: StateManager, md: string, item:
         if (!isNaN(parsed)) {
           itemData.metadata.storyPointsStr = spValue;
           itemData.metadata.storyPoints = parsed;
+        }
+        title = markRangeForDeletion(title, {
+          start: node.position.start.offset - itemBoundary.start,
+          end: node.position.end.offset - itemBoundary.start,
+        });
+        return true;
+      }
+
+      if (genericNode.type === 'priority') {
+        const pValue = (genericNode as PriorityNode).priority?.toLowerCase();
+        if (pValue === 'low' || pValue === 'medium' || pValue === 'high') {
+          itemData.metadata.priorityStr = pValue;
+          itemData.metadata.priority = pValue;
         }
         title = markRangeForDeletion(title, {
           start: node.position.start.offset - itemBoundary.start,

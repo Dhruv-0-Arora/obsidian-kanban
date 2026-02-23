@@ -73,6 +73,11 @@ function getExtensions(stateManager: StateManager) {
       `${stateManager.getSetting('story-points-trigger')}{`,
       '}'
     ),
+    genericWrappedExtension(
+      'priority',
+      `${stateManager.getSetting('priority-trigger')}{`,
+      '}'
+    ),
     genericWrappedExtension('embedWikilink', '![[', ']]'),
     genericWrappedExtension('wikilink', '[[', ']]'),
     tagExtension(),
@@ -98,6 +103,10 @@ function getMdastExtensions(stateManager: StateManager) {
     genericWrappedFromMarkdown('storyPoints', (text, node) => {
       if (!text) return;
       node.storyPoints = text;
+    }),
+    genericWrappedFromMarkdown('priority', (text, node) => {
+      if (!text) return;
+      node.priority = text;
     }),
     genericWrappedFromMarkdown('embedWikilink', (text, node) => {
       if (!text) return;
