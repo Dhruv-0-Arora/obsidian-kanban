@@ -10,6 +10,7 @@ import { ListFormat } from './parsers/List';
 import { BaseFormat, frontmatterKey, shouldRefreshBoard } from './parsers/common';
 import { getTaskStatusDone } from './parsers/helpers/inlineMetadata';
 import {
+  defaultCategoryTrigger,
   defaultDateTrigger,
   defaultMetadataPosition,
   defaultPriorityTrigger,
@@ -250,6 +251,9 @@ export class StateManager {
         this.getSettingRaw('story-points-trigger', suppliedSettings) || defaultStoryPointsTrigger,
       'priority-trigger':
         this.getSettingRaw('priority-trigger', suppliedSettings) || defaultPriorityTrigger,
+      'category-trigger':
+        this.getSettingRaw('category-trigger', suppliedSettings) || defaultCategoryTrigger,
+      'categories': this.getSettingRaw('categories', suppliedSettings) ?? [],
       'link-date-to-daily-note': this.getSettingRaw('link-date-to-daily-note', suppliedSettings),
       'move-dates': this.getSettingRaw('move-dates', suppliedSettings),
       'move-tags': this.getSettingRaw('move-tags', suppliedSettings),

@@ -78,6 +78,11 @@ function getExtensions(stateManager: StateManager) {
       `${stateManager.getSetting('priority-trigger')}{`,
       '}'
     ),
+    genericWrappedExtension(
+      'category',
+      `${stateManager.getSetting('category-trigger')}{`,
+      '}'
+    ),
     genericWrappedExtension('embedWikilink', '![[', ']]'),
     genericWrappedExtension('wikilink', '[[', ']]'),
     tagExtension(),
@@ -107,6 +112,10 @@ function getMdastExtensions(stateManager: StateManager) {
     genericWrappedFromMarkdown('priority', (text, node) => {
       if (!text) return;
       node.priority = text;
+    }),
+    genericWrappedFromMarkdown('category', (text, node) => {
+      if (!text) return;
+      node.category = text;
     }),
     genericWrappedFromMarkdown('embedWikilink', (text, node) => {
       if (!text) return;

@@ -23,6 +23,7 @@ import {
 import { KanbanContext, SearchContext } from '../context';
 import { c, useGetTagColorFn } from '../helpers';
 import { EditState, EditingState, Item, isEditing } from '../types';
+import { CategorySelect } from './CategorySelect';
 import { DateBubble } from './DateBubble';
 import { InlineMetadata } from './InlineMetadata';
 import { PrioritySelect } from './PrioritySelect';
@@ -307,7 +308,10 @@ export const ItemContent = memo(function ItemContent({
           <InlineMetadata item={item} stateManager={stateManager} />
           <Tags tags={item.data.metadata.tags} searchQuery={searchQuery} />
           <div className={c('item-metadata-bottom')}>
-            <DateBubble item={item} isStatic={isStatic} />
+            <span className={c('item-metadata-bottom-left')}>
+              <DateBubble item={item} isStatic={isStatic} />
+              <CategorySelect item={item} isStatic={isStatic} />
+            </span>
             <span className={c('item-metadata-bottom-right')}>
               <PrioritySelect item={item} isStatic={isStatic} />
               <StoryPoints item={item} isStatic={isStatic} />

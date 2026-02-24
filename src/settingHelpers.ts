@@ -10,6 +10,7 @@ export const defaultDateTrigger = '@';
 export const defaultTimeTrigger = '@@';
 export const defaultStoryPointsTrigger = 'sp';
 export const defaultPriorityTrigger = '!!';
+export const defaultCategoryTrigger = 'cat';
 export const defaultMetadataPosition = 'body';
 
 export function getFolderChoices(app: App) {

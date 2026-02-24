@@ -300,6 +300,10 @@ export function getItemClassModifiers(item: Item) {
     classModifiers.push(`is-priority-${priority}`);
   }
 
+  if (item.data.metadata.category) {
+    classModifiers.push('has-category');
+  }
+
   for (const tag of item.data.metadata.tags) {
     classModifiers.push(`has-tag-${tag.slice(1)}`);
   }

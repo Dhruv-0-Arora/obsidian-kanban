@@ -22,6 +22,7 @@ import { visit } from 'unist-util-visit';
 
 import { archiveString, completeString, settingsToCodeblock } from '../common';
 import {
+  CategoryNode,
   DateNode,
   FileNode,
   PriorityNode,
@@ -195,6 +196,19 @@ export function listItemToItemData(stateManager: StateManager, md: string, item:
         if (pValue === 'low' || pValue === 'medium' || pValue === 'high') {
           itemData.metadata.priorityStr = pValue;
           itemData.metadata.priority = pValue;
+        }
+        title = markRangeForDeletion(title, {
+          start: node.position.start.offset - itemBoundary.start,
+          end: node.position.end.offset - itemBoundary.start,
+        });
+        return true;
+      }
+
+      if (genericNode.type === 'category') {
+        const catValue = (genericNode as CategoryNode).category;
+        if (catValue) {
+          itemData.metadata.categoryStr = catValue;
+          itemData.metadata.category = catValue;
         }
         title = markRangeForDeletion(title, {
           start: node.position.start.offset - itemBoundary.start,

@@ -240,6 +240,13 @@ const en = {
   Medium: 'Medium',
   Low: 'Low',
   'Remove priority': 'Remove priority',
+  'Manage categories': 'Manage categories',
+  'Add category': 'Add category',
+  'Remove category': 'Remove category',
+  'Category name': 'Category name',
+  'Category color': 'Category color',
+  'Add categories to organize your cards. Each category has a name and color.':
+    'Add categories to organize your cards. Each category has a name and color.',
   'Duplicate card': 'Duplicate card',
   'Split card': 'Split card',
   'Copy link to card': 'Copy link to card',

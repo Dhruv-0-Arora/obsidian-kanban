@@ -16,6 +16,7 @@ import {
   getDefaultTimeFormat,
 } from './components/helpers';
 import {
+  Category,
   DataKey,
   DateColor,
   DateColorSetting,
@@ -56,6 +57,8 @@ export interface KanbanSettings {
   'archive-date-format'?: string;
   'archive-date-separator'?: string;
   'archive-with-date'?: boolean;
+  'categories'?: Category[];
+  'category-trigger'?: string;
   'date-colors'?: DateColor[];
   'date-display-format'?: string;
   'date-format'?: string;
@@ -106,6 +109,8 @@ export const settingKeyLookup: Set<keyof KanbanSettings> = new Set([
   'archive-date-format',
   'archive-date-separator',
   'archive-with-date',
+  'categories',
+  'category-trigger',
   'date-colors',
   'date-display-format',
   'date-format',

@@ -23,6 +23,10 @@ export interface PriorityNode extends ValueNode {
   priority: string;
 }
 
+export interface CategoryNode extends ValueNode {
+  category: string;
+}
+
 export interface FileNode extends ValueNode {
   fileAccessor: FileAccessor;
   fileMetadata?: FileMetadata;
