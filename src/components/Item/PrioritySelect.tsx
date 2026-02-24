@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'preact/compat';
+import { createPortal, useCallback, useContext, useEffect, useRef, useState } from 'preact/compat';
 import { useNestedEntityPath } from 'src/dnd/components/Droppable';
 import { Path } from 'src/dnd/types';
 
@@ -21,21 +21,6 @@ interface PrioritySelectProps {
   item: Item;
   isStatic?: boolean;
   explicitPath?: Path;
-}
-
-function getContainingBlock(el: HTMLElement): HTMLElement | null {
-  let parent = el.parentElement;
-  while (parent) {
-    const style = getComputedStyle(parent);
-    if (style.contain && style.contain !== 'none' && style.contain !== 'style') {
-      return parent;
-    }
-    if (style.transform && style.transform !== 'none') {
-      return parent;
-    }
-    parent = parent.parentElement;
-  }
-  return null;
 }
 
 export function PrioritySelect({ item, isStatic, explicitPath }: PrioritySelectProps) {
@@ -79,23 +64,14 @@ export function PrioritySelect({ item, isStatic, explicitPath }: PrioritySelectP
     const ddHeight = dd.offsetHeight;
     const ddWidth = dd.offsetWidth;
 
-    const container = getContainingBlock(trigger);
-    let offsetX = 0;
-    let offsetY = 0;
-    if (container) {
-      const containerRect = container.getBoundingClientRect();
-      offsetX = containerRect.left;
-      offsetY = containerRect.top;
-    }
-
-    let top = triggerRect.top - offsetY - ddHeight - 4;
+    let top = triggerRect.top - ddHeight - 4;
     if (top < 0) {
-      top = triggerRect.bottom - offsetY + 4;
+      top = triggerRect.bottom + 4;
     }
 
-    let left = triggerRect.right - offsetX - ddWidth;
+    let left = triggerRect.right - ddWidth;
     if (left < 0) {
-      left = triggerRect.left - offsetX;
+      left = triggerRect.left;
     }
 
     dd.style.top = `${top}px`;
@@ -145,19 +121,8 @@ export function PrioritySelect({ item, isStatic, explicitPath }: PrioritySelectP
 
   const display = currentPriority ? priorityLabels[currentPriority] : priorityLabels.none;
 
-  return (
-    <div
-      className={`${c('item-priority-select')} ${currentPriority ? `is-${currentPriority}` : ''}`}
-      data-ignore-drag="true"
-    >
-      <span
-        ref={triggerRef}
-        className={c('item-priority-select-value')}
-        onClick={handleToggle}
-      >
-        {display}
-      </span>
-      {isOpen && (
+  const dropdown = isOpen
+    ? createPortal(
         <div
           ref={dropdownRef}
           className={c('item-priority-dropdown')}
@@ -174,8 +139,24 @@ export function PrioritySelect({ item, isStatic, explicitPath }: PrioritySelectP
               {opt === 'none' ? 'None' : opt.charAt(0).toUpperCase() + opt.slice(1)}
             </div>
           ))}
-        </div>
-      )}
+        </div>,
+        document.body
+      )
+    : null;
+
+  return (
+    <div
+      className={`${c('item-priority-select')} ${currentPriority ? `is-${currentPriority}` : ''}`}
+      data-ignore-drag="true"
+    >
+      <span
+        ref={triggerRef}
+        className={c('item-priority-select-value')}
+        onClick={handleToggle}
+      >
+        {display}
+      </span>
+      {dropdown}
     </div>
   );
 }
