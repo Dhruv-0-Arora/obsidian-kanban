@@ -265,48 +265,6 @@ export function useItemMenu({
 
       menu.addSeparator();
 
-      const hasStoryPoints = item.data.metadata.storyPoints != null;
-      const spTrigger = stateManager.getSetting('story-points-trigger');
-      const spRegEx = new RegExp(
-        `(^|\\s)${escapeRegExpStr(spTrigger as string)}{([^}]+)}`
-      );
-
-      menu.addItem((i) => {
-        i.setIcon('lucide-hash')
-          .setTitle(hasStoryPoints ? t('Edit story points') : t('Add story points'))
-          .onClick(() => {
-            const currentSp = item.data.metadata.storyPoints;
-            const input = prompt(
-              'Enter story points:',
-              currentSp != null ? String(currentSp) : ''
-            );
-            if (input === null) return;
-            const parsed = parseFloat(input);
-            if (isNaN(parsed)) return;
-
-            let titleRaw = item.data.titleRaw;
-            if (hasStoryPoints) {
-              titleRaw = titleRaw.replace(spRegEx, `$1${spTrigger}{${parsed}}`);
-            } else {
-              titleRaw = `${titleRaw} ${spTrigger}{${parsed}}`;
-            }
-            boardModifiers.updateItem(path, stateManager.updateItemContent(item, titleRaw));
-          });
-      });
-
-      if (hasStoryPoints) {
-        menu.addItem((i) => {
-          i.setIcon('lucide-x')
-            .setTitle(t('Remove story points'))
-            .onClick(() => {
-              const titleRaw = item.data.titleRaw.replace(spRegEx, '').trim();
-              boardModifiers.updateItem(path, stateManager.updateItemContent(item, titleRaw));
-            });
-        });
-      }
-
-      menu.addSeparator();
-
       const currentPriority = item.data.metadata.priority;
       const pTrigger = stateManager.getSetting('priority-trigger') as string;
       const pRegEx = new RegExp(
