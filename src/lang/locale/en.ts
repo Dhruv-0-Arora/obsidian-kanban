@@ -283,6 +283,8 @@ const en = {
   'Delete list': 'Delete list',
   'Insert list before': 'Insert list before',
   'Insert list after': 'Insert list after',
+  'Make this horizontal': 'Make this horizontal',
+  'Make this vertical': 'Make this vertical',
   'Sort by card text': 'Sort by card text',
   'Sort by date': 'Sort by date',
   'Sort by tags': 'Sort by tags',

@@ -20,7 +20,7 @@ import { defaultSort } from 'src/helpers/util';
 import { t } from 'src/lang/helpers';
 import { visit } from 'unist-util-visit';
 
-import { archiveString, completeString, settingsToCodeblock } from '../common';
+import { archiveString, completeString, horizontalString, settingsToCodeblock } from '../common';
 import {
   CategoryNode,
   DateNode,
@@ -305,6 +305,7 @@ export function astToUnhydratedBoard(
       const title = getStringFromBoundary(md, headingBoundary);
 
       let shouldMarkItemsComplete = false;
+      let isHorizontal = false;
 
       const list = getNextOfType(root.children, index, 'list', (child) => {
         if (child.type === 'heading') return false;
@@ -318,6 +319,11 @@ export function astToUnhydratedBoard(
 
           if (childStr === t('Complete')) {
             shouldMarkItemsComplete = true;
+            return true;
+          }
+
+          if (childStr.includes('kanban:horizontal')) {
+            isHorizontal = true;
             return true;
           }
         }
@@ -347,6 +353,7 @@ export function astToUnhydratedBoard(
           data: {
             ...parseLaneTitle(title),
             shouldMarkItemsComplete,
+            isHorizontal,
           },
         });
       } else {
@@ -364,6 +371,7 @@ export function astToUnhydratedBoard(
           data: {
             ...parseLaneTitle(title),
             shouldMarkItemsComplete,
+            isHorizontal,
           },
         });
       }
@@ -465,6 +473,11 @@ function laneToMd(lane: Lane) {
 
   if (lane.data.shouldMarkItemsComplete) {
     lines.push(completeString);
+  }
+
+  if (lane.data.isHorizontal) {
+    lines.push(horizontalString);
+    lines.push('');
   }
 
   lane.children.forEach((item) => {

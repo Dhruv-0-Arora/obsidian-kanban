@@ -15,6 +15,7 @@ export enum LaneSort {
 
 export interface LaneData {
   shouldMarkItemsComplete?: boolean;
+  isHorizontal?: boolean;
   title: string;
   maxItems?: number;
   dom?: HTMLDivElement;
