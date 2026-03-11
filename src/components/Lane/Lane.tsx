@@ -8,7 +8,6 @@ import {
   StaticDroppable,
   useNestedEntityPath,
 } from 'src/dnd/components/Droppable';
-import { ExplicitPathContext } from 'src/dnd/components/context';
 import { ScrollContainer } from 'src/dnd/components/ScrollContainer';
 import { SortPlaceholder } from 'src/dnd/components/SortPlaceholder';
 import { Sortable, StaticSortable } from 'src/dnd/components/Sortable';
@@ -282,50 +281,48 @@ function HorizontalLaneRaw({ lane, laneIndex }: HorizontalLaneProps) {
   );
 
   return (
-    <ExplicitPathContext.Provider value={explicitPath}>
-      <SortContext.Provider value={lane.data.sorted ?? null}>
-        <div ref={wrapperRef} className={c('horizontal-lane')}>
-          <div className={c('horizontal-lane-header')}>
-            <span className={c('horizontal-lane-title')}>{lane.data.title}</span>
-            <span className={c('horizontal-lane-count')}>{lane.children.length}</span>
-            <a
-              aria-label={t('More options')}
-              className={`${c('lane-settings-button')} clickable-icon`}
-              onClick={(e) => settingsMenu.showAtMouseEvent(e)}
+    <SortContext.Provider value={lane.data.sorted ?? null}>
+      <div ref={wrapperRef} className={c('horizontal-lane')}>
+        <div className={c('horizontal-lane-header')}>
+          <span className={c('horizontal-lane-title')}>{lane.data.title}</span>
+          <span className={c('horizontal-lane-count')}>{lane.children.length}</span>
+          <a
+            aria-label={t('More options')}
+            className={`${c('lane-settings-button')} clickable-icon`}
+            onClick={(e) => settingsMenu.showAtMouseEvent(e)}
+          >
+            <Icon name="lucide-more-vertical" />
+          </a>
+        </div>
+        <div className={c('horizontal-lane-body')}>
+          <div className={c('horizontal-lane-sidebar')} />
+          <div className={c('horizontal-lane-content')} ref={elementRef}>
+            <Droppable
+              elementRef={elementRef}
+              measureRef={elementRef}
+              id={lane.id}
+              index={laneIndex}
+              data={lane}
             >
-              <Icon name="lucide-more-vertical" />
-            </a>
-          </div>
-          <div className={c('horizontal-lane-body')}>
-            <div className={c('horizontal-lane-sidebar')} />
-            <div className={c('horizontal-lane-content')} ref={elementRef}>
-              <Droppable
-                elementRef={elementRef}
-                measureRef={elementRef}
-                id={lane.id}
-                index={laneIndex}
-                data={lane}
-              >
-                <Sortable onSortChange={setIsSorting} axis="vertical">
-                  <Items
-                    items={lane.children}
-                    isStatic={false}
-                    shouldMarkItemsComplete={shouldMarkItemsComplete}
-                  />
-                  <SortPlaceholder
-                    accepts={laneAccepts}
-                    index={lane.children.length}
-                  />
-                </Sortable>
-              </Droppable>
-              {!search?.query && (
-                <ItemForm addItems={addItems} editState={editState} setEditState={setEditState} />
-              )}
-            </div>
+              <Sortable onSortChange={setIsSorting} axis="vertical">
+                <Items
+                  items={lane.children}
+                  isStatic={false}
+                  shouldMarkItemsComplete={shouldMarkItemsComplete}
+                />
+                <SortPlaceholder
+                  accepts={laneAccepts}
+                  index={lane.children.length}
+                />
+              </Sortable>
+            </Droppable>
+            {!search?.query && (
+              <ItemForm addItems={addItems} editState={editState} setEditState={setEditState} />
+            )}
           </div>
         </div>
-      </SortContext.Provider>
-    </ExplicitPathContext.Provider>
+      </div>
+    </SortContext.Provider>
   );
 }
 
